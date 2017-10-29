@@ -9,7 +9,6 @@ export class GalleryTile {
         this.isModal = false;
     }
     clicked() {
-        console.log(this.imgSrc);
         this.isModal = !this.isModal;
     }
 }
