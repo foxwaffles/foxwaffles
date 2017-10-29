@@ -70,18 +70,11 @@ define('components/gallery',["require", "exports", "aurelia-framework"], functio
         function Gallery() {
         }
         Gallery.prototype.attached = function () {
-            if (this.columns <= 0) {
-                this.columns = 3;
-            }
         };
         __decorate([
             aurelia_framework_1.bindable,
             __metadata("design:type", Array)
         ], Gallery.prototype, "list", void 0);
-        __decorate([
-            aurelia_framework_1.bindable,
-            __metadata("design:type", Number)
-        ], Gallery.prototype, "columns", void 0);
         return Gallery;
     }());
     exports.Gallery = Gallery;
@@ -145,5 +138,5 @@ define('text!app.html', ['module'], function(module) { module.exports = "<templa
 define('text!components/gallery.html', ['module'], function(module) { module.exports = "<template>\n    <require from=\"components/galleryTile\"></require>\n    <require from=\"components/gallery.css\"></require>\n    \n    <gallery-tile repeat.for=\"item of list\" width=400 height=400 img-src.bind=\"item.src\"></gallery-tile>\n</template>\n"; });
 define('text!components/gallery.css', ['module'], function(module) { module.exports = "gallery {\n  display: flex;\n  flex-direction: row;\n  flex-wrap: wrap;\n  justify-content: center;\n  max-width: 1200px;\n  margin: auto; }\n"; });
 define('text!components/galleryTile.html', ['module'], function(module) { module.exports = "<template css=\"width:${width}px; height:${height}px;\">\n    <require from=\"./galleryTile.css\"></require>\n    <a class=\"overlay\" click.delegate=\"clicked()\"><div>text here</div></a>\n    <div click.delegate=\"clicked()\" class=\"image-container ${isModal ? 'modal' : ''}\">\n        <img src.bind=\"imgSrc\" width.bind=\"width\" height.bind=\"height\"/>\n    </div>\n</template>\n"; });
-define('text!components/galleryTile.css', ['module'], function(module) { module.exports = "gallery-tile {\n  flex: 1;\n  flex-grow: 0;\n  position: relative; }\n\n.overlay {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  width: 100%;\n  height: 100%;\n  position: absolute; }\n  .overlay div {\n    flex: 1;\n    display: flex;\n    flex-direction: row;\n    align-items: center; }\n\n.overlay {\n  background-color: transparent;\n  color: transparent;\n  transition: .8s; }\n\n.overlay:hover {\n  background-color: rgba(255, 255, 255, 0.8);\n  color: black;\n  transition: .8s; }\n\n.image-container {\n  position: static; }\n  .image-container.modal {\n    position: fixed;\n    top: 0;\n    bottom: 0;\n    left: 0;\n    right: 0;\n    width: auto;\n    height: auto;\n    align-content: center;\n    background-color: rgba(0, 0, 0, 0.8);\n    z-index: 1000; }\n"; });
+define('text!components/galleryTile.css', ['module'], function(module) { module.exports = "gallery-tile {\n  flex: 1;\n  flex-grow: 0;\n  position: relative; }\n  gallery-tile .overlay {\n    display: flex;\n    flex-direction: column;\n    align-items: center;\n    width: 100%;\n    height: 100%;\n    position: absolute;\n    background-color: transparent;\n    color: transparent;\n    transition: .8s; }\n    gallery-tile .overlay:hover {\n      background-color: rgba(255, 255, 255, 0.8);\n      color: black;\n      transition: .8s; }\n    gallery-tile .overlay div {\n      flex: 1;\n      display: flex;\n      flex-direction: row;\n      align-items: center; }\n  gallery-tile .image-container {\n    position: static; }\n    gallery-tile .image-container.modal {\n      position: fixed;\n      top: 0;\n      bottom: 0;\n      left: 0;\n      right: 0;\n      width: auto;\n      height: auto;\n      align-content: center;\n      background-color: rgba(0, 0, 0, 0.8);\n      z-index: 1000; }\n"; });
 //# sourceMappingURL=app-bundle.js.map
