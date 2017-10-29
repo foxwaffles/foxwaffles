@@ -1,0 +1,6 @@
+<template>
+    <require from="components/galleryTile"></require>
+    <require from="components/gallery.css"></require>
+    
+    <gallery-tile repeat.for="item of list" width=400 height=400 img-src.bind="item.src"></gallery-tile>
+</template>

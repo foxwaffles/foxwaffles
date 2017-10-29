@@ -1,0 +1,7 @@
+<template css="width:${width}px; height:${height}px;">
+    <require from="./galleryTile.css"></require>
+    <a class="overlay" click.delegate="clicked()"></a>
+    <div click.delegate="clicked()" class="image-container ${isModal ? 'modal' : ''}">
+        <img src.bind="imgSrc" width.bind="width" height.bind="height"/>
+    </div>
+</template>
