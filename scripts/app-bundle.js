@@ -3,7 +3,7 @@ define('app',["require", "exports"], function (require, exports) {
     Object.defineProperty(exports, "__esModule", { value: true });
     var App = (function () {
         function App() {
-            this.message = 'Hello World!';
+            this.message = 'Site Under Construction';
             this.list = [{ src: "https://static.pexels.com/photos/34950/pexels-photo.jpg" }];
         }
         return App;
