@@ -1,5 +1,5 @@
 <template css="width:${width}px; height:${height}px;">
     <require from="./galleryTile.css"></require>
-    <a class="overlay" click.delegate="clicked()"><div>text here</div></a>
-    <img src.bind="imgSrc" width.bind="width" height.bind="height"/>
+    <div css="width:${width}px; height:${height}px;background-image:url('${galleryObject.src}'); background-size: cover; background-position: 50% 50%; background-repeat: no-repeat;"></div>
+    <a class="overlay" click.delegate="clicked()"><div class="tile-text">${galleryObject.text}</div></a>
 </template>
