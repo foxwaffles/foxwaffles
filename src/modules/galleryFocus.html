@@ -1,4 +1,11 @@
 <template>
-    <h1>${galleryObject.text}</h1>
-    <img src="${galleryObject.src}"/>
+<div class="container">
+    <div class="card">
+        <img class="card-img-top" src="${galleryObject.src}" alt="${gallerytObject.text}">
+        <div class="card-body">
+            <h4 class="card-title">${galleryObject.text}</h4>
+            <p class="card-text">${galleryObject.description}</p>
+        </div>
+    </div>
+</div>
 </template>

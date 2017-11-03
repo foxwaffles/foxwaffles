@@ -1,3 +1,6 @@
 <template>
-  <router-view swap-order="with"></router-view>
+    <nav class="navbar navbar-dark bg-dark">
+        <a class="${nav.isActive ? 'active' : ''}" repeat.for="nav of router.navigation" href.bind="nav.href">${nav.title}</a>
+    </nav>
+    <router-view swap-order="before"></router-view>  
 </template>

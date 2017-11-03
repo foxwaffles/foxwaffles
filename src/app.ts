@@ -19,10 +19,10 @@ export class App {
 
     configureRouter(config, router) {
         this.router = router;
-        config.title = 'Aurelia';
+        config.title = 'Foxwaffles';
         config.map([
-            { route: ['', 'home'], name: 'home', moduleId: 'modules/index' },
-            { route: '/:id', name: 'piece', moduleId: 'modules/galleryFocus'}
+            { route: ['', 'home'], name: 'home', moduleId: 'modules/index', title: "Home", nav: true },
+            { route: '/:id', name: 'piece', moduleId: 'modules/galleryFocus', title: "Piece"}
         ]);
     }
 }

@@ -20,7 +20,7 @@ class Config {
 
 let config = new Config();
 export class ConfigFactory {
-    getConfig() {
+    async getConfig() {
         return config;
     }
 }

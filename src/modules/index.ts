@@ -6,8 +6,9 @@ export class Index {
     
     constructor() {
         const configFactory = new ConfigFactory();
-        const config = configFactory.getConfig();
-        this.list = config.galleryList;
+        configFactory.getConfig().then(config => {
+            this.list = config.galleryList;
+        });
     }
     
 }
