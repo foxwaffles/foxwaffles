@@ -9,7 +9,7 @@ export class GalleryFocus {
             const galleryList = config.galleryList;
             const id : number= Number(params.id);
             this.galleryObject = galleryList.filter(x => x.id === id)[0];
-            routeConfig.navModel.setTitle(this.galleryObject.text);
+            routeConfig.navModel.setTitle(this.galleryObject.title);
         });
     }
 }

@@ -156,10 +156,12 @@ define('entities/galleryObject',["require", "exports"], function (require, expor
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var GalleryObject = (function () {
-        function GalleryObject(src, text) {
+        function GalleryObject(src, title, description) {
+            if (description === void 0) { description = "temporary text"; }
             this.id = GalleryObject._id++;
             this.src = src;
-            this.text = text;
+            this.title = title;
+            this.description = description;
         }
         GalleryObject._id = 0;
         return GalleryObject;
@@ -182,7 +184,7 @@ define('modules/galleryFocus',["require", "exports", "../singletons/config"], fu
                 var galleryList = config.galleryList;
                 var id = Number(params.id);
                 _this.galleryObject = galleryList.filter(function (x) { return x.id === id; })[0];
-                routeConfig.navModel.setTitle(_this.galleryObject.text);
+                routeConfig.navModel.setTitle(_this.galleryObject.title);
             });
         };
         return GalleryFocus;
@@ -263,14 +265,14 @@ define('singletons/config',["require", "exports", "../entities/galleryObject"], 
         function Config() {
             this.galleryList = [
                 new galleryObject_1.GalleryObject("https://img00.deviantart.net/6de1/i/2015/347/7/d/immolation_by_aquashiram14-d9k0yod.jpg", "Immolation"),
-                new galleryObject_1.GalleryObject("https://static.pexels.com/photos/34950/pexels-photo.jpg", "text"),
-                new galleryObject_1.GalleryObject("https://static.pexels.com/photos/34950/pexels-photo.jpg", "text"),
-                new galleryObject_1.GalleryObject("https://static.pexels.com/photos/34950/pexels-photo.jpg", "text"),
-                new galleryObject_1.GalleryObject("https://static.pexels.com/photos/34950/pexels-photo.jpg", "text"),
-                new galleryObject_1.GalleryObject("https://static.pexels.com/photos/34950/pexels-photo.jpg", "text"),
-                new galleryObject_1.GalleryObject("https://static.pexels.com/photos/34950/pexels-photo.jpg", "text"),
-                new galleryObject_1.GalleryObject("https://static.pexels.com/photos/34950/pexels-photo.jpg", "text"),
-                new galleryObject_1.GalleryObject("https://static.pexels.com/photos/34950/pexels-photo.jpg", "text")
+                new galleryObject_1.GalleryObject("https://img00.deviantart.net/6de1/i/2015/347/7/d/immolation_by_aquashiram14-d9k0yod.jpg", "Immolation"),
+                new galleryObject_1.GalleryObject("https://img00.deviantart.net/6de1/i/2015/347/7/d/immolation_by_aquashiram14-d9k0yod.jpg", "Immolation"),
+                new galleryObject_1.GalleryObject("https://img00.deviantart.net/6de1/i/2015/347/7/d/immolation_by_aquashiram14-d9k0yod.jpg", "Immolation"),
+                new galleryObject_1.GalleryObject("https://img00.deviantart.net/6de1/i/2015/347/7/d/immolation_by_aquashiram14-d9k0yod.jpg", "Immolation"),
+                new galleryObject_1.GalleryObject("https://img00.deviantart.net/6de1/i/2015/347/7/d/immolation_by_aquashiram14-d9k0yod.jpg", "Immolation"),
+                new galleryObject_1.GalleryObject("https://img00.deviantart.net/6de1/i/2015/347/7/d/immolation_by_aquashiram14-d9k0yod.jpg", "Immolation"),
+                new galleryObject_1.GalleryObject("https://img00.deviantart.net/6de1/i/2015/347/7/d/immolation_by_aquashiram14-d9k0yod.jpg", "Immolation"),
+                new galleryObject_1.GalleryObject("https://img00.deviantart.net/6de1/i/2015/347/7/d/immolation_by_aquashiram14-d9k0yod.jpg", "Immolation"),
             ];
         }
         return Config;
@@ -297,7 +299,7 @@ define('text!app.html', ['module'], function(module) { module.exports = "<templa
 define('text!components/gallery.html', ['module'], function(module) { module.exports = "<template>\n    <require from=\"components/galleryTile\"></require>\n    <require from=\"components/gallery.css\"></require>\n    \n    <gallery-tile repeat.for=\"item of list\" width.bind=\"tileWidth\" height.bind=\"tileHeight\" gallery-object.bind=\"item\"></gallery-tile>\n</template>\n"; });
 define('text!components/gallery.css', ['module'], function(module) { module.exports = "gallery {\n  display: flex;\n  flex-direction: row;\n  flex-wrap: wrap;\n  justify-content: center;\n  margin: auto; }\n"; });
 define('text!components/galleryTile.css', ['module'], function(module) { module.exports = "gallery-tile {\n  flex: 1;\n  flex-grow: 0;\n  position: relative; }\n  gallery-tile .overlay {\n    display: flex;\n    flex-direction: column;\n    align-items: center;\n    width: 100%;\n    height: 100%;\n    position: absolute;\n    top: 0;\n    left: 0;\n    background-color: transparent !important;\n    color: transparent !important;\n    transition: .8s; }\n    gallery-tile .overlay:hover {\n      background-color: rgba(255, 255, 255, 0.9) !important;\n      color: black !important;\n      transition: .5s; }\n    gallery-tile .overlay div {\n      flex: 1;\n      display: flex;\n      flex-direction: row;\n      align-items: center; }\n"; });
-define('text!components/galleryTile.html', ['module'], function(module) { module.exports = "<template css=\"width:${width}px; height:${height}px;\">\n    <require from=\"./galleryTile.css\"></require>\n    <div css=\"width:${width}px; height:${height}px;background-image:url('${galleryObject.src}'); background-size: cover; background-position: 50% 50%; background-repeat: no-repeat;\"></div>\n    <a class=\"overlay\" click.delegate=\"clicked()\"><div class=\"tile-text\">${galleryObject.text}</div></a>\n</template>\n"; });
-define('text!modules/galleryFocus.html', ['module'], function(module) { module.exports = "<template>\r\n<div class=\"container\">\r\n    <div class=\"card\">\r\n        <img class=\"card-img-top\" src=\"${galleryObject.src}\" alt=\"${gallerytObject.text}\">\r\n        <div class=\"card-body\">\r\n            <h4 class=\"card-title\">${galleryObject.text}</h4>\r\n            <p class=\"card-text\">${galleryObject.description}</p>\r\n        </div>\r\n    </div>\r\n</div>\r\n</template>"; });
+define('text!components/galleryTile.html', ['module'], function(module) { module.exports = "<template css=\"width:${width}px; height:${height}px;\">\n    <require from=\"./galleryTile.css\"></require>\n    <div css=\"width:${width}px; height:${height}px;background-image:url('${galleryObject.src}'); background-size: cover; background-position: 50% 50%; background-repeat: no-repeat;\"></div>\n    <a class=\"overlay\" click.delegate=\"clicked()\"><div class=\"tile-text\">${galleryObject.title}</div></a>\n</template>\n"; });
+define('text!modules/galleryFocus.html', ['module'], function(module) { module.exports = "<template>\r\n<div class=\"container\">\r\n    <div class=\"card\">\r\n        <img class=\"card-img-top\" src=\"${galleryObject.src}\" alt=\"${gallerytObject.text}\">\r\n        <div class=\"card-body\">\r\n            <h4 class=\"card-title\">${galleryObject.title}</h4>\r\n            <p class=\"card-text\">${galleryObject.description}</p>\r\n        </div>\r\n    </div>\r\n</div>\r\n</template>"; });
 define('text!modules/index.html', ['module'], function(module) { module.exports = "<template>\r\n    <require from=\"components/gallery\"></require>\r\n    <h1>${galleryTitle}</h1>\r\n    <gallery list.bind=\"list\" tile-width=\"500\" tile-height=\"300\"></gallery>\r\n</template>"; });
 //# sourceMappingURL=app-bundle.js.map
