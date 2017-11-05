@@ -22,6 +22,9 @@ export class App {
         config.title = 'Foxwaffles';
         config.map([
             { route: ['', 'home'], name: 'home', moduleId: 'modules/index', title: "Home", nav: true },
+            { route: 'resume', name: 'resume', moduleId: 'modules/resume', title: "Resume", nav: true},
+            { route: 'about', name: 'about', moduleId: 'modules/about', title: 'About', nav: true},
+            { route: 'contact', name: 'contact', moduleId: 'modules/contact', title: 'Contact', nav:true},
             { route: '/:id', name: 'piece', moduleId: 'modules/galleryFocus', title: "Piece"}
         ]);
     }

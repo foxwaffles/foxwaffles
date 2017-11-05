@@ -19,6 +19,7 @@ Thumbs.db
 # Ref: https://github.com/github/gitignore/blob/master/Global/VisualStudioCode.gitignore
 .idea
 .vscode
+.chrome
 
 # Dependencies
 node_modules

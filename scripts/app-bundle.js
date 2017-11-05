@@ -25,6 +25,9 @@ define('app',["require", "exports", "./singletons/config", "aurelia-framework", 
             config.title = 'Foxwaffles';
             config.map([
                 { route: ['', 'home'], name: 'home', moduleId: 'modules/index', title: "Home", nav: true },
+                { route: 'resume', name: 'resume', moduleId: 'modules/resume', title: "Resume", nav: true },
+                { route: 'about', name: 'about', moduleId: 'modules/about', title: 'About', nav: true },
+                { route: 'contact', name: 'contact', moduleId: 'modules/contact', title: 'Contact', nav: true },
                 { route: '/:id', name: 'piece', moduleId: 'modules/galleryFocus', title: "Piece" }
             ]);
         };
@@ -263,20 +266,16 @@ define('singletons/config',["require", "exports", "../entities/galleryObject"], 
     Object.defineProperty(exports, "__esModule", { value: true });
     var Config = (function () {
         function Config() {
-            this.galleryList = [
-                new galleryObject_1.GalleryObject("https://img00.deviantart.net/6de1/i/2015/347/7/d/immolation_by_aquashiram14-d9k0yod.jpg", "Immolation"),
-                new galleryObject_1.GalleryObject("https://img00.deviantart.net/6de1/i/2015/347/7/d/immolation_by_aquashiram14-d9k0yod.jpg", "Immolation"),
-                new galleryObject_1.GalleryObject("https://img00.deviantart.net/6de1/i/2015/347/7/d/immolation_by_aquashiram14-d9k0yod.jpg", "Immolation"),
-                new galleryObject_1.GalleryObject("https://img00.deviantart.net/6de1/i/2015/347/7/d/immolation_by_aquashiram14-d9k0yod.jpg", "Immolation"),
-                new galleryObject_1.GalleryObject("https://img00.deviantart.net/6de1/i/2015/347/7/d/immolation_by_aquashiram14-d9k0yod.jpg", "Immolation"),
-                new galleryObject_1.GalleryObject("https://img00.deviantart.net/6de1/i/2015/347/7/d/immolation_by_aquashiram14-d9k0yod.jpg", "Immolation"),
-                new galleryObject_1.GalleryObject("https://img00.deviantart.net/6de1/i/2015/347/7/d/immolation_by_aquashiram14-d9k0yod.jpg", "Immolation"),
-                new galleryObject_1.GalleryObject("https://img00.deviantart.net/6de1/i/2015/347/7/d/immolation_by_aquashiram14-d9k0yod.jpg", "Immolation"),
-                new galleryObject_1.GalleryObject("https://img00.deviantart.net/6de1/i/2015/347/7/d/immolation_by_aquashiram14-d9k0yod.jpg", "Immolation"),
-            ];
+            this.galleryList = [];
+            for (var i = 0; i < 18; i++) {
+                this.galleryList.push(new galleryObject_1.GalleryObject("https://img00.deviantart.net/6de1/i/2015/347/7/d/immolation_by_aquashiram14-d9k0yod.jpg", "Immolation"));
+            }
+            this.aboutText = "about";
+            this.contactText = "contact";
         }
         return Config;
     }());
+    exports.Config = Config;
     var config = new Config();
     var ConfigFactory = (function () {
         function ConfigFactory() {
@@ -295,11 +294,74 @@ define('singletons/config',["require", "exports", "../entities/galleryObject"], 
 
 
 
-define('text!app.html', ['module'], function(module) { module.exports = "<template>\n    <nav class=\"navbar navbar-dark bg-dark\">\n        <a class=\"${nav.isActive ? 'active' : ''}\" repeat.for=\"nav of router.navigation\" href.bind=\"nav.href\">${nav.title}</a>\n    </nav>\n    <router-view swap-order=\"before\"></router-view>  \n</template>\n"; });
+define('modules/about',["require", "exports", "../singletons/config"], function (require, exports, config_1) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    var About = (function () {
+        function About() {
+        }
+        About.prototype.activate = function (params, routeConfig) {
+            var _this = this;
+            (new config_1.ConfigFactory()).getConfig().then(function (config) {
+                _this.text = config.aboutText;
+            });
+        };
+        return About;
+    }());
+    exports.About = About;
+});
+
+
+
+define('modules/contact',["require", "exports", "../singletons/config"], function (require, exports, config_1) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    var Contact = (function () {
+        function Contact() {
+        }
+        Contact.prototype.activate = function (params, routeConfig) {
+            var _this = this;
+            (new config_1.ConfigFactory()).getConfig().then(function (config) {
+                _this.text = config.contactText;
+            });
+        };
+        return Contact;
+    }());
+    exports.Contact = Contact;
+});
+
+
+
+define('modules/resume',["require", "exports", "../singletons/config"], function (require, exports, config_1) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    var Resume = (function () {
+        function Resume() {
+        }
+        Resume.prototype.activate = function (params, routeConfig) {
+            var _this = this;
+            (new config_1.ConfigFactory()).getConfig().then(function (config) {
+                _this.resumeHtml = config.resumeHtml;
+            });
+        };
+        return Resume;
+    }());
+    exports.Resume = Resume;
+});
+
+
+
+define('text!app.html', ['module'], function(module) { module.exports = "<template>\n    <require from=\"app.css\"></require>\n    <div class=\"layout-column\">\n        <nav class=\"flex-no-grow navbar navbar-light bg-light\">\n            <div class=\"container\">\n                <div class=\"row\" style=\"width:100%;\">\n                    <div class=\"col text-center\">HEADER LOGO</div>\n                </div>\n                <div class=\"row\" style=\"width:100%;\">\n                    <a repeat.for=\"nav of router.navigation\" class=\"col text-center ${nav.isActive ? 'active' : ''}\" href.bind=\"nav.href\">${nav.title}</a>                                    \n                </div>\n            </div>\n        </nav>\n        <router-view class=\"flex-item layout-column\" swap-order=\"before\"></router-view>              \n    </div>\n\n</template>\n"; });
 define('text!components/gallery.html', ['module'], function(module) { module.exports = "<template>\n    <require from=\"components/galleryTile\"></require>\n    <require from=\"components/gallery.css\"></require>\n    \n    <gallery-tile repeat.for=\"item of list\" width.bind=\"tileWidth\" height.bind=\"tileHeight\" gallery-object.bind=\"item\"></gallery-tile>\n</template>\n"; });
 define('text!components/gallery.css', ['module'], function(module) { module.exports = "gallery {\n  display: flex;\n  flex-direction: row;\n  flex-wrap: wrap;\n  justify-content: center;\n  margin: auto; }\n"; });
-define('text!components/galleryTile.css', ['module'], function(module) { module.exports = "gallery-tile {\n  flex: 1;\n  flex-grow: 0;\n  position: relative; }\n  gallery-tile .overlay {\n    display: flex;\n    flex-direction: column;\n    align-items: center;\n    width: 100%;\n    height: 100%;\n    position: absolute;\n    top: 0;\n    left: 0;\n    background-color: transparent !important;\n    color: transparent !important;\n    transition: .8s; }\n    gallery-tile .overlay:hover {\n      background-color: rgba(255, 255, 255, 0.9) !important;\n      color: black !important;\n      transition: .5s; }\n    gallery-tile .overlay div {\n      flex: 1;\n      display: flex;\n      flex-direction: row;\n      align-items: center; }\n"; });
-define('text!components/galleryTile.html', ['module'], function(module) { module.exports = "<template css=\"width:${width}px; height:${height}px;\">\n    <require from=\"./galleryTile.css\"></require>\n    <div css=\"width:${width}px; height:${height}px;background-image:url('${galleryObject.src}'); background-size: cover; background-position: 50% 50%; background-repeat: no-repeat;\"></div>\n    <a class=\"overlay\" click.delegate=\"clicked()\"><div class=\"tile-text\">${galleryObject.title}</div></a>\n</template>\n"; });
+define('text!components/galleryTile.html', ['module'], function(module) { module.exports = "<template css=\"width:${width}px; height:${height}px;\">\r\n    <require from=\"./galleryTile.css\"></require>\r\n    <div css=\"width:${width}px; height:${height}px;background-image:url('${galleryObject.src}'); background-size: cover; background-position: 50% 50%; background-repeat: no-repeat;\"></div>\r\n    <a class=\"overlay\" click.delegate=\"clicked()\"><div class=\"tile-text\">${galleryObject.title}</div></a>\r\n</template>\r\n"; });
 define('text!modules/galleryFocus.html', ['module'], function(module) { module.exports = "<template>\r\n<div class=\"container\">\r\n    <div class=\"card\">\r\n        <img class=\"card-img-top\" src=\"${galleryObject.src}\" alt=\"${gallerytObject.text}\">\r\n        <div class=\"card-body\">\r\n            <h4 class=\"card-title\">${galleryObject.title}</h4>\r\n            <p class=\"card-text\">${galleryObject.description}</p>\r\n        </div>\r\n    </div>\r\n</div>\r\n</template>"; });
-define('text!modules/index.html', ['module'], function(module) { module.exports = "<template>\r\n    <require from=\"components/gallery\"></require>\r\n    <h1>${galleryTitle}</h1>\r\n    <gallery list.bind=\"list\" tile-width=\"500\" tile-height=\"300\"></gallery>\r\n</template>"; });
+define('text!components/galleryTile.css', ['module'], function(module) { module.exports = "gallery-tile {\n  flex: 1;\n  flex-grow: 0;\n  position: relative; }\n  gallery-tile .overlay {\n    display: flex;\n    flex-direction: column;\n    align-items: center;\n    width: 100%;\n    height: 100%;\n    position: absolute;\n    top: 0;\n    left: 0;\n    background-color: transparent !important;\n    color: transparent !important;\n    transition: .8s; }\n    gallery-tile .overlay:hover {\n      background-color: rgba(255, 255, 255, 0.9) !important;\n      color: black !important;\n      transition: .5s; }\n    gallery-tile .overlay div {\n      flex: 1;\n      display: flex;\n      flex-direction: row;\n      align-items: center; }\n"; });
+define('text!modules/index.html', ['module'], function(module) { module.exports = "<template>\r\n    <require from=\"components/gallery\"></require>\r\n    <div class=\"flex-item container-fluid vertical-scroll\">\r\n        <div class=\"row container\" style=\"margin: auto\">\r\n            <div class=\"col text-center\">\r\n                <h1 class=\"m-md-4\">${galleryTitle}</h1>\r\n                <gallery list.bind=\"list\" tile-width=\"300\" tile-height=\"200\"></gallery></div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n</template>"; });
+define('text!modules/about.html', ['module'], function(module) { module.exports = "<template>\r\n    <div class=\"container\">\r\n        <div class=\"row\">\r\n            <p>${text}</p>                \r\n        </div>\r\n    </div>\r\n</template>"; });
+define('text!app.css', ['module'], function(module) { module.exports = "nav a {\n  background-color: transparent;\n  transition: .5s;\n  color: black; }\n  nav a:hover {\n    background-color: rgba(0, 0, 0, 0.5);\n    transition: .5s;\n    color: white; }\n\nhtml, body {\n  height: 100%;\n  overflow-y: hidden; }\n\n.layout-column {\n  display: flex;\n  flex-direction: column;\n  height: 100%; }\n\n.flex-item {\n  flex: 1; }\n\n.flex-no-grow {\n  flex: 0 0 auto; }\n\n.vertical-scroll {\n  overflow-y: scroll;\n  height: 100%; }\n"; });
+define('text!modules/contact.html', ['module'], function(module) { module.exports = "<template>\r\n    <div class=\"container\">\r\n        <div class=\"row\">\r\n            <p>${text}</p>\r\n        </div>\r\n    </div>\r\n</template>"; });
+define('text!modules/resume.html', ['module'], function(module) { module.exports = "<template>\r\n    <require from=\"./resume.css\"></require>\r\n    <div class=\"container\" style=\"width:100%; height:100%\">\r\n        <iframe width=\"100%\" height=\"100%\" src=\"/resume.html\"></iframe>\r\n    </div>\r\n</template>"; });
+define('text!snippets/resume.html', ['module'], function(module) { module.exports = "<template>\r\n<table>\r\n        <tr>\r\n            <td>item</td><td>hello world</td>\r\n        </tr>\r\n</table>\r\n</template>\r\n"; });
+define('text!modules/resume.css', ['module'], function(module) { module.exports = "iframe {\n  border: none; }\n"; });
 //# sourceMappingURL=app-bundle.js.map
