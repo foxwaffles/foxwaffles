@@ -1,15 +1,34 @@
 <template>
     <require from="app.css"></require>
     <div class="layout-column">
-        <nav class="flex-no-grow navbar navbar-light bg-light">
+                            <!--<div class="container invisible">
+                        <div class="row" style="width:100%;">
+                            <div class="col text-center">HEADER LOGO</div>
+                        </div>
+                        <div class="row justify-content-md-center">
+                            <a repeat.for="nav of router.navigation" class="col text-center ${nav.isActive ? 'active' : ''}" href.bind="nav.href">${nav.title}</a>                                    
+                        </div>
+                    </div>-->
+        <div class="flex-no-grow bg-light">
+            header images
+        </div>
+        <nav class="flex-no-grow navbar navbar-expand-lg navbar-light bg-light">
             <div class="container">
-                <div class="row" style="width:100%;">
-                    <div class="col text-center">HEADER LOGO</div>
-                </div>
-                <div class="row" style="width:100%;">
-                    <a repeat.for="nav of router.navigation" class="col text-center ${nav.isActive ? 'active' : ''}" href.bind="nav.href">${nav.title}</a>                                    
+                <div class="row justify-content w-100">
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav m-auto">
+                            <li class="nav-item" repeat.for="nav of router.navigation">
+                                <a class="nav-link" href.bind="nav.href">${nav.title}</a>                                                                
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
+
+
         </nav>
         <router-view class="flex-item layout-column" swap-order="before"></router-view>              
     </div>
