@@ -1,12 +1,12 @@
 <template>
     <require from="app.css"></require>
     <div class="layout-column">
-        <div class="flex-no-grow bg-light d-none d-md-block">
-            header images
+        <div class="flex-no-grow bg-light d-none d-md-flex flex-column align-items-center justify-content-center">
+                <img height="100px" src="${headerImgSrc}"> <h1>${siteHeader}</h1>
         </div>
-        <nav class="flex-no-grow navbar navbar-expand-md navbar-light bg-light mb-2">
+        <nav class="flex-no-grow navbar sticky-top navbar-expand-md navbar-light bg-light mb-2">
             <div class="container">
-                <a class="navbar-brand d-md-none" href="/#/">FoxWaffles</a>
+                <a class="navbar-brand d-md-none d-flex align-items-center" href="/#/"><img class="" height="32px" src="${headerImgSrc}"><div>${siteHeader}</div></a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>

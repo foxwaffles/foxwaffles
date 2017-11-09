@@ -5,15 +5,25 @@ import {EventAggregator} from 'aurelia-event-aggregator';
 import {Router} from 'aurelia-router';
 @inject(EventAggregator)
 export class App {
+
+    public headerImgSrc : string;
+    public siteHeader: string;
+
     private router : Router;
     private eventAggregator: EventAggregator;
     private configFactory : ConfigFactory;
     constructor(eventAggregator) {
+
         this.eventAggregator = eventAggregator;
         this.configFactory = new ConfigFactory();
         this.eventAggregator.subscribe('tileClicked', data => {
             const galleryId = data.id;
             this.router.navigate('/'+galleryId);
+        })
+        this.configFactory.getConfig().then(config => {
+            this.headerImgSrc = config.headerImgSrc;
+            this.siteHeader = config.siteHeader;
+            
         })
     }
 
