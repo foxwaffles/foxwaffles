@@ -1,12 +1,12 @@
 import {inject, bindable, bindingMode} from 'aurelia-framework';
 import {EventAggregator} from 'aurelia-event-aggregator';
-import {GalleryObject} from '../entities/galleryObject'
+import {GalleryGroup} from '../entities/galleryGroup'
 
 @inject(EventAggregator)
 export class GalleryTile {
     @bindable width: number;
     @bindable height: number;
-    @bindable galleryObject: GalleryObject;
+    @bindable galleryObject: GalleryGroup;
 
     private eventAggregator : EventAggregator;
     constructor(eventAggregator) {

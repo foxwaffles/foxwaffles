@@ -1,13 +1,13 @@
-import {ConfigFactory} from '../singletons/config'
-
+import {ConfigFactory} from '../singletons/config';
+import {GalleryGroup} from '../entities/galleryGroup';
 export class Index {
-    list : Array<any>;
+    list : Array<GalleryGroup>;
     galleryTitle : string = 'Site Under Construction';
     
     constructor() {
         const configFactory = new ConfigFactory();
         configFactory.getConfig().then(config => {
-            this.list = config.galleryList;
+            this.list = config.tiles;
         });
     }
     

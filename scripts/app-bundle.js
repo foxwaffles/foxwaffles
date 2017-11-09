@@ -25,9 +25,9 @@ define('app',["require", "exports", "./singletons/config", "aurelia-framework", 
             config.title = 'Foxwaffles';
             config.map([
                 { route: ['', 'home'], name: 'home', moduleId: 'modules/index', title: "Home", nav: true },
-                { route: 'resume', name: 'resume', moduleId: 'modules/resume', title: "Resume", nav: true },
                 { route: 'about', name: 'about', moduleId: 'modules/about', title: 'About', nav: true },
-                { route: 'contact', name: 'contact', moduleId: 'modules/contact', title: 'Contact', nav: true },
+                { route: 'contact', name: 'findMe', moduleId: 'modules/contact', title: 'Find Me', nav: true },
+                { route: 'resume', name: 'resume', moduleId: 'modules/resume', title: "Resume", nav: true },
                 { route: '/:id', name: 'piece', moduleId: 'modules/galleryFocus', title: "Piece" }
             ]);
         };
@@ -122,7 +122,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-define('components/galleryTile',["require", "exports", "aurelia-framework", "aurelia-event-aggregator", "../entities/galleryObject"], function (require, exports, aurelia_framework_1, aurelia_event_aggregator_1, galleryObject_1) {
+define('components/galleryTile',["require", "exports", "aurelia-framework", "aurelia-event-aggregator", "../entities/galleryGroup"], function (require, exports, aurelia_framework_1, aurelia_event_aggregator_1, galleryGroup_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var GalleryTile = (function () {
@@ -142,7 +142,7 @@ define('components/galleryTile',["require", "exports", "aurelia-framework", "aur
         ], GalleryTile.prototype, "height", void 0);
         __decorate([
             aurelia_framework_1.bindable,
-            __metadata("design:type", galleryObject_1.GalleryObject)
+            __metadata("design:type", galleryGroup_1.GalleryGroup)
         ], GalleryTile.prototype, "galleryObject", void 0);
         GalleryTile = __decorate([
             aurelia_framework_1.inject(aurelia_event_aggregator_1.EventAggregator),
@@ -184,10 +184,11 @@ define('modules/galleryFocus',["require", "exports", "../singletons/config"], fu
             var _this = this;
             var configFactory = new config_1.ConfigFactory();
             configFactory.getConfig().then(function (config) {
-                var galleryList = config.galleryList;
+                var tiles = config.tiles;
                 var id = Number(params.id);
-                _this.galleryObject = galleryList.filter(function (x) { return x.id === id; })[0];
-                routeConfig.navModel.setTitle(_this.galleryObject.title);
+                var tile = tiles.filter(function (x) { return x.id === id; })[0];
+                _this.galleryObjects = tile.galleryView;
+                routeConfig.navModel.setTitle(tile.title);
             });
         };
         return GalleryFocus;
@@ -206,7 +207,7 @@ define('modules/index',["require", "exports", "../singletons/config"], function 
             this.galleryTitle = 'Site Under Construction';
             var configFactory = new config_1.ConfigFactory();
             configFactory.getConfig().then(function (config) {
-                _this.list = config.galleryList;
+                _this.list = config.tiles;
             });
         }
         return Index;
@@ -261,14 +262,19 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-define('singletons/config',["require", "exports", "../entities/galleryObject"], function (require, exports, galleryObject_1) {
+define('singletons/config',["require", "exports", "../entities/galleryObject", "../entities/galleryGroup"], function (require, exports, galleryObject_1, galleryGroup_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var Config = (function () {
         function Config() {
-            this.galleryList = [];
+            var testSrc = "https://img00.deviantart.net/6de1/i/2015/347/7/d/immolation_by_aquashiram14-d9k0yod.jpg";
+            this.tiles = [];
             for (var i = 0; i < 18; i++) {
-                this.galleryList.push(new galleryObject_1.GalleryObject("https://img00.deviantart.net/6de1/i/2015/347/7/d/immolation_by_aquashiram14-d9k0yod.jpg", "Immolation"));
+                var group = new galleryGroup_1.GalleryGroup(testSrc, "Immolation");
+                this.tiles.push(group);
+                for (var j = 0; j < 2; j++) {
+                    group.addGalleryObject(new galleryObject_1.GalleryObject(testSrc, "Immolation Object"));
+                }
             }
             this.aboutText = "about";
             this.contactText = "contact";
@@ -351,11 +357,42 @@ define('modules/resume',["require", "exports", "../singletons/config"], function
 
 
 
-define('text!app.html', ['module'], function(module) { module.exports = "<template>\n    <require from=\"app.css\"></require>\n    <div class=\"layout-column\">\n                            <!--<div class=\"container invisible\">\n                        <div class=\"row\" style=\"width:100%;\">\n                            <div class=\"col text-center\">HEADER LOGO</div>\n                        </div>\n                        <div class=\"row justify-content-md-center\">\n                            <a repeat.for=\"nav of router.navigation\" class=\"col text-center ${nav.isActive ? 'active' : ''}\" href.bind=\"nav.href\">${nav.title}</a>                                    \n                        </div>\n                    </div>-->\n        <div class=\"flex-no-grow bg-light d-none d-md-block\">\n            header images\n        </div>\n        <nav class=\"flex-no-grow navbar navbar-expand-md navbar-light bg-light\">\n            <div class=\"container\">\n                <a class=\"navbar-brand d-md-none\" href=\"/#/\">FoxWaffles</a>\n                <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarSupportedContent\" aria-controls=\"navbarSupportedContent\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">\n                    <span class=\"navbar-toggler-icon\"></span>\n                </button>\n                <div class=\"collapse navbar-collapse\" id=\"navbarSupportedContent\">\n                    <ul class=\"navbar-nav m-auto\">\n                        <li class=\"nav-item\" repeat.for=\"nav of router.navigation\">\n                            <a class=\"nav-link\" href.bind=\"nav.href\">${nav.title}</a>                                                                \n                        </li>\n                    </ul>\n                </div>\n            </div>\n\n\n        </nav>\n        <router-view class=\"flex-item layout-column\" swap-order=\"before\"></router-view>              \n    </div>\n\n</template>\n"; });
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+define('entities/galleryGroup',["require", "exports", "../entities/galleryObject"], function (require, exports, galleryObject_1) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    var GalleryGroup = (function (_super) {
+        __extends(GalleryGroup, _super);
+        function GalleryGroup(src, title, description) {
+            if (description === void 0) { description = "temporary text"; }
+            var _this = _super.call(this, src, title, description) || this;
+            _this.galleryView = [];
+            return _this;
+        }
+        GalleryGroup.prototype.addGalleryObject = function (obj) {
+            this.galleryView.push(obj);
+        };
+        return GalleryGroup;
+    }(galleryObject_1.GalleryObject));
+    exports.GalleryGroup = GalleryGroup;
+});
+
+
+
+define('text!app.html', ['module'], function(module) { module.exports = "<template>\n    <require from=\"app.css\"></require>\n    <div class=\"layout-column\">\n        <div class=\"flex-no-grow bg-light d-none d-md-block\">\n            header images\n        </div>\n        <nav class=\"flex-no-grow navbar navbar-expand-md navbar-light bg-light mb-2\">\n            <div class=\"container\">\n                <a class=\"navbar-brand d-md-none\" href=\"/#/\">FoxWaffles</a>\n                <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarSupportedContent\" aria-controls=\"navbarSupportedContent\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">\n                    <span class=\"navbar-toggler-icon\"></span>\n                </button>\n                <div class=\"collapse navbar-collapse\" id=\"navbarSupportedContent\">\n                    <ul class=\"navbar-nav m-auto\">\n                        <li class=\"nav-item\" repeat.for=\"nav of router.navigation\">\n                            <a class=\"nav-link\" href.bind=\"nav.href\">${nav.title}</a>                                                                \n                        </li>\n                    </ul>\n                </div>\n            </div>\n\n\n        </nav>\n        <router-view class=\"flex-item layout-column\" swap-order=\"before\"></router-view>              \n    </div>\n\n</template>\n"; });
 define('text!components/gallery.html', ['module'], function(module) { module.exports = "<template>\n    <require from=\"components/galleryTile\"></require>\n    <require from=\"components/gallery.css\"></require>\n    \n    <gallery-tile repeat.for=\"item of list\" width.bind=\"tileWidth\" height.bind=\"tileHeight\" gallery-object.bind=\"item\"></gallery-tile>\n</template>\n"; });
 define('text!components/gallery.css', ['module'], function(module) { module.exports = "gallery {\n  display: flex;\n  flex-direction: row;\n  flex-wrap: wrap;\n  justify-content: center;\n  margin: auto; }\n"; });
 define('text!components/galleryTile.html', ['module'], function(module) { module.exports = "<template css=\"width:${width}px; height:${height}px;\">\r\n    <require from=\"./galleryTile.css\"></require>\r\n    <div css=\"width:${width}px; height:${height}px;background-image:url('${galleryObject.src}'); background-size: cover; background-position: 50% 50%; background-repeat: no-repeat;\"></div>\r\n    <a class=\"overlay\" click.delegate=\"clicked()\"><div class=\"tile-text\">${galleryObject.title}</div></a>\r\n</template>\r\n"; });
-define('text!modules/galleryFocus.html', ['module'], function(module) { module.exports = "<template>\r\n<div class=\"container\">\r\n    <div class=\"card\">\r\n        <img class=\"card-img-top\" src=\"${galleryObject.src}\" alt=\"${gallerytObject.text}\">\r\n        <div class=\"card-body\">\r\n            <h4 class=\"card-title\">${galleryObject.title}</h4>\r\n            <p class=\"card-text\">${galleryObject.description}</p>\r\n        </div>\r\n    </div>\r\n</div>\r\n</template>"; });
+define('text!modules/galleryFocus.html', ['module'], function(module) { module.exports = "<template>\r\n<div class=\"layout-column vertical-scroll\">\r\n    <div class=\"container flex-no-grow\" repeat.for=\"obj of galleryObjects\">\r\n        <div class=\"row\">\r\n            <div class=\"col-md-6\">\r\n                <img style=\"max-width:100%;\" src=\"${obj.src}\" alt=\"${obj.text}\">\r\n            </div>\r\n            <div class=\"col-md-6\">\r\n                <h4 class=\"pl-2 pr-2\">${obj.title}</h4>\r\n                <p class=\"pl-2 pr-2\">${obj.description}</p>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>\r\n\r\n</template>"; });
 define('text!components/galleryTile.css', ['module'], function(module) { module.exports = "gallery-tile {\n  flex: 1;\n  flex-grow: 0;\n  position: relative; }\n  gallery-tile .overlay {\n    display: flex;\n    flex-direction: column;\n    align-items: center;\n    width: 100%;\n    height: 100%;\n    position: absolute;\n    top: 0;\n    left: 0;\n    background-color: transparent !important;\n    color: transparent !important;\n    transition: .8s; }\n    gallery-tile .overlay:hover {\n      background-color: rgba(255, 255, 255, 0.9) !important;\n      color: black !important;\n      transition: .5s; }\n    gallery-tile .overlay div {\n      flex: 1;\n      display: flex;\n      flex-direction: row;\n      align-items: center; }\n"; });
 define('text!modules/index.html', ['module'], function(module) { module.exports = "<template>\r\n    <require from=\"components/gallery\"></require>\r\n    <div class=\"flex-item container-fluid vertical-scroll\">\r\n        <div class=\"row container\" style=\"margin: auto\">\r\n            <div class=\"col text-center\">\r\n                <h1 class=\"m-md-4\">${galleryTitle}</h1>\r\n                <gallery list.bind=\"list\" tile-width=\"300\" tile-height=\"200\"></gallery></div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n</template>"; });
 define('text!modules/about.html', ['module'], function(module) { module.exports = "<template>\r\n    <div class=\"container\">\r\n        <div class=\"row\">\r\n            <p>${text}</p>                \r\n        </div>\r\n    </div>\r\n</template>"; });
