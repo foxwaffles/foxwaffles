@@ -21,12 +21,12 @@ export class Config {
         //"https://dl.dropboxusercontent.com/content_link/YwprMa1nJTPOKjQV0DJYJIAYKMRPEQk056kcXqpScGT5BUOgnnvXdFqq8cMZnanO/file?dl=0";
 
         this.iconList = [
-            new IconRow("#", "deviantart", "Art, WIPs, commissions, adoptables, and more! All art hubb."),
-            new IconRow("#", "twitch", "Art streams on Saturdays, video game streams on Sundays, Tuesdays, and Thursdays. Come chat with me and ask me anything!"),
-            new IconRow("#", "youtube", "Stream highlights, speedpaints, tutorials, Q&A's, and more!"),
-            new IconRow("#", "wordpress", "Blog posts of game reviews, philosophy, art, everything and The Kitchen Sink!"),
-            new IconRow("#", "tumblr", "Art, WIPs, Q&A's, and more!"),
-            new IconRow("#", "twitter", "Bite-sized posts of my art and gaming life, along with the occasional cat.")
+            new IconRow("https://aquashiram14.deviantart.com/", "deviantart", "Art, WIPs, commissions, adoptables, and more! All art hubb."),
+            new IconRow("https://go.twitch.tv/firefoxwaffles", "twitch", "Art streams on Saturdays, video game streams on Sundays, Tuesdays, and Thursdays. Come chat with me and ask me anything!"),
+            new IconRow("#", "youtube", "Stream highlights, speedpaints, tutorials, Q&A's, and more! Coming 2018!"),
+            new IconRow("https://foxwaffleskitchensink.wordpress.com/", "wordpress", "Blog posts of game reviews, philosophy, art, everything and The Kitchen Sink!"),
+            new IconRow("https://foxwafflesdraws.tumblr.com/", "tumblr", "Art, WIPs, Q&A's, and more!"),
+            new IconRow("#", "twitter", "Bite-sized posts of my art and gaming life, along with the occasional cat. Coming 2018!")
         ];
 
         this.aboutSrc = "https://www.dropbox.com/s/6u0pdnltjkfznw5/AboutMe.png?dl=1";
