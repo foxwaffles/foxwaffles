@@ -440,6 +440,14 @@ define('singletons/config',["require", "exports", "../entities/galleryObject", "
                             src: "https://www.dropbox.com/s/yhchtt7q4sv8l37/2%20Randinnan.jpg?dl=1",
                             description: "Project concentrating on character design and creation\
                                     <br/><br/>Photoshop."
+                        },
+                        {
+                            title: "Randinnan Shimmermoon (Walk-Cycle)",
+                            src: "https://www.dropbox.com/s/vujxh9fid7slvt4/2a%20Randinnan.gif?dl=1",
+                            description: "Animation drawn frame by frame of a walk cycle that is true\
+                                to the personality and form of the character. Inspired by slow motion\
+                                footage of the cheetah\
+                                <br/><br/>Photoshop and After Effects."
                         }
                     ]
                 },
