@@ -5,11 +5,13 @@ export class Config {
     public tiles : Array<GalleryGroup>;
     public aboutText: string;
     public aboutSrc: string;
+    public artistStatement: string;
     public contactText: string;
     public resumeHtml: string;
     public headerImgSrc: string; 
     public siteHeader: string;
     public resumeSrc: string;
+    public resumeDownload: string;
     public iconList: Array<IconRow>;
     
     constructor() {
@@ -18,6 +20,7 @@ export class Config {
         this.siteHeader = "Foxwaffles";
         //const testSrc = "https://img00.deviantart.net/6de1/i/2015/347/7/d/immolation_by_aquashiram14-d9k0yod.jpg";
         this.resumeSrc = "https://www.dropbox.com/s/2djzjbmzyws67r0/Resume2017.png?dl=1";
+        this.resumeDownload = "https://www.dropbox.com/s/sx3niyzd5gkyjvv/Resume2017.pdf?dl=1";
         //"https://dl.dropboxusercontent.com/content_link/YwprMa1nJTPOKjQV0DJYJIAYKMRPEQk056kcXqpScGT5BUOgnnvXdFqq8cMZnanO/file?dl=0";
 
         this.iconList = [
@@ -39,6 +42,10 @@ export class Config {
                         To be clear, foxwaffles appreciates the\
                         subtle nuances of both waffles and pancakes\
                         equally.";
+
+        this.artistStatement = "From specializing to multidisciplinary proficiency, Cassie’s vision has shifted throughout her journey. In an era where the individual has more access to entrepreneurial resources than ever before, she has already begun to leverage hers as she builds her brand online. Cassie has discovered that connecting perspectives is her passion. Interwoven stories are not limited to a world of fantasy; they even occur in a team of people with a common goal. This can be leveraged to achieve something greater than even their highest expectations.\
+            Cassie dreams of empowering and encouraging those she works with, and is constantly learning along the way. Through her education, she has melded together experiences in illustration, animation, programming, and industrial design. The result is an appreciation and passion for branching out ever further, and she hopes to continue to share that with others.";
+    
 
         const tileConfig = [
             {
