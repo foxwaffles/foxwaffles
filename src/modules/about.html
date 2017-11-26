@@ -1,6 +1,6 @@
 <template>
     <require from="./about.css"></require>
-    <div class="container">
+    <div class="container d-none d-md-block">
         <div class="row justify-content-center">
             <div class="col-md-8 d-flex justify-content-center">
                 <div><img src="${src}" style="max-width: 100%;"/></div>
@@ -11,5 +11,10 @@
         <div class="row">
             <div class="d-flex align-items-center" innerhtml="${artistStatement}"></div>                
         </div>
+    </div>
+    <div class="container d-md-none">
+        <img src="${src}" style="max-width: 50%; float: left;"/><span innerhtml="${text}"></span>
+        <hr/>
+        <div innerhtml="${artistStatement}"></div>
     </div>
 </template>
